@@ -4,8 +4,24 @@ const request = require('supertest');
 const {app} = require('./../server');
 const {User} = require('./../model/User');
 
+const users = [{
+	name: 'User 1',
+	email: 'user1@gmail.com',
+	age: 20,
+	location: 'abc',
+	completedAt: 123
+},{
+	name: 'User 2',
+	email: 'user2@gmail.com',
+	age: 21,
+	location: 'def',
+	completedAt: 456
+}];
+
 beforeEach((done) => {
-	User.remove({}).then(() => done());
+	User.remove({}).then(() => {
+		User.insertMany(users);
+	}).then(() => done());
 });
 
 describe('POST / users', () => {
@@ -25,7 +41,7 @@ describe('POST / users', () => {
 					return done(err);
 				}
 
-				User.find().then((users) => {
+				User.find({name}).then((users) => {
 					expect(users.length).toBe(1);
 					expect(users[0].name).toBe(name);
 					done();
@@ -43,9 +59,21 @@ describe('POST / users', () => {
 					return done(err);
 				}
 				User.find().then((users) => {
-					expect(users.length).toBe(0);
+					expect(users.length).toBe(2);
 					done();
 				}).catch((e) => done(e));
 			})
+	});
+});
+
+describe('GET /users', () => {
+	it('should get all users', (done) => {
+		request(app)
+			.get('/users')
+			.expect(200)
+			.expect((res) => {
+				expect(res.body.users.length).toBe(2);
+			})
+			.end(done);
 	});
 });

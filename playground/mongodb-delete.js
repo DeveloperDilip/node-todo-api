@@ -24,14 +24,14 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp', (err, db) => {
 	// 	}
 	// });
 
-	//Find One and Delete
-	// db.collection('Users').findOneAndDelete({name: 'Moulik Rai'}).then((result) => {
-	// 	console.log(result);
-	// }, (err) => {
-	// 	if(err){
-	// 		console.log('Cannot perform the delete operation.');
-	// 	}
-	// });
+	Find One and Delete
+	db.collection('Users').findOneAndDelete({name: 'Moulik Rai'}).then((result) => {
+		console.log(result);
+	}, (err) => {
+		if(err){
+			console.log('Cannot perform the delete operation.');
+		}
+	});
 
 	
 });

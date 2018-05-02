@@ -9,7 +9,6 @@ var User = mongoose.model('User', {
 	},
 	email: {
 		type: String,
-		required: true,
 		minlength: 1,
 		trim: true
 	},
@@ -31,7 +30,7 @@ module.exports = {
 	User 
 };
 
-// // save new something
+// save new something
 // var NewUser = new User({
 // 	name: 'Dilip Bhattarai',
 // 	email: 'synister.dilip@gmail.com',

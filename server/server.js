@@ -20,6 +20,14 @@ app.post('/users', (request, response) => {
 	});
 });
 
+app.get('/users', (request, response) => {
+	User.find().then((users) => {
+		response.send({users});
+	}, (e) => {
+		response.send(400).send(e);
+	});
+})
+
 app.listen(3000, () => {
 	console.log('Started on port 3000');
 });

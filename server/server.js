@@ -5,6 +5,7 @@ var {ObjectID} = require('mongodb');
 var {mongoose} = require('./db/mongoose');
 var {User} = require('./model/User');
 
+var app = process.env.PORT || 3000;
 var app = express();
 app.use(bodyParser.json());
 
@@ -57,8 +58,8 @@ app.get('/users/:id', (request, response) => {
 	// }).catch(e) => response.status(400).send(e);
 });
 
-app.listen(3000, () => {
-	console.log('Started on port 3000');
+app.listen(port, () => {
+	console.log('Started on port', port);
 });
 
 module.exports = {
